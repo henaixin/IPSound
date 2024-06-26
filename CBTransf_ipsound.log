@@ -1,0 +1,11 @@
+/home/corerain/IPSound/logfile.log {
+  daily
+  rotate 10
+  size 500M
+  missingok
+  compress
+  delaycompress
+  notifempty
+  create 664 corerain corerain
+  su corerain corerain
+}

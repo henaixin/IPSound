@@ -1,0 +1,35 @@
+[Unit]
+# 步骤1:拷贝文件到系统配置目录 sudo cp CBTransf.service /etc/systemd/system/
+# 步骤2 重载配置 sudo systemctl daemon-reload
+# 步骤3:使能服务保证启动机器后可自启本服务 sudo systemctl enable CBTransf.service
+# 步骤4:启动服务 sudo systemctl start CBTransf.service
+
+# 工程描述
+Description=My Python CBTransf Project main.py
+# 网络服务启动之后再启动该服务
+After=network.target
+
+[Service]
+# Environment="PYTHONPATH=/home/corerain/.local/lib/python3.6/site-packages/"
+# Environment="PYTHONPATH=/home/corerain/workspace/CBProject/linux_x86/"
+Environment="PYTHONPATH=/home/corerain/IPSound/CBProject/linux_x86"
+
+# 指定执行 Python 程序的目录
+WorkingDirectory=/home/corerain/IPSound
+User=corerain
+
+StandardOutput=append:/home/corerain/IPSound/logfile_public.log
+StandardError=append:/home/corerain/IPSound/logfile_public.log
+
+# 指定要执行的 Python 程序的命令
+ExecStart=/usr/bin/python3 IPSound_public.py
+
+# 自动重启
+Restart=always
+# 重启前等待3秒
+RestartSec=3
+
+
+[Install]
+# 服务运行级别 多用户模式
+WantedBy=multi-user.target
